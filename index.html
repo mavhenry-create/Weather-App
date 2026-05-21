@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./src/output.css" />
+  </head>
+  <body>
+    <div
+      id="main-app-container"
+      class="bg-white dark:bg-gray-800 min-h-screen flex flex-col items-center justify-center"
+    >
+    <div>
+        <button
+            id="theme-toggle-btn"
+            class="absolute top-4 right-4 border border-gray-300 w-10 h-10 dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-white focus:outline-none"
+        >
+            <span id="theme-toggle-icon" class="text-xl">🌑</span>
+        </button>
+    </div>
+      <header class="text-4xl font-bold mb-8 dark:text-white">Weather App</header>
+      <div class="w-full max-w-md">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Enter city name"
+            list="place_suggestions"
+            class="w-full p-3 border border-gray-300 rounded mb-4 dark:text-white"
+          />
+          <datalist id="place_suggestions"> </datalist>
+        </div>
+        <button
+          id="get-weather-btn"
+          class="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-700"
+        >
+          Get Weather
+        </button>
+      </div>
+      <div id="error-message" class="mt-4 text-red-500"></div>
+      <div id="loading-indicator" class="mt-4 text-gray-500 hidden">
+        Loading...
+      </div>
+      <div
+        id="modals-container"
+        class="flex flex-row  mt-8 p-4 gap-4 min-w-3/4 h-75 text-center justify-center"
+      >
+    
+        <div
+          id="current-weather-modal"
+          class="grid grid-cols-4 grid-rows-[auto_1fr] border bg-gray-50 border-gray-300 w-full min-h-20 text-sm"
+        >
+          <div
+            class="row-span-2 col-span-1 flex flex-col items-center justify-center p-4 border-r border-gray-300"
+          >
+            <img
+              id="weather-icon"
+              src=""
+              alt="Weather Icon"
+              hidden
+              class="w-20 h-20 mb-2"
+            />
+            <span id="temp" class="text-3xl font-semibold"></span>
+          </div>
+          <div
+            class="col-span-3 row-span-1 bg-gray-100 border-b border-gray-300 text-center text-md h-14"
+          >
+            <div class="flex text-center justify-center items-center gap-2">
+             <div><span id="city-name" class="font-bold text-xl pt-2">Lethbridge</span></div>
+             <div><span id="region" class="font-bold text-xl pt-2">AB</span></div> 
+              <div><span id="country-code" class="font-bold text-xl pt-2">CA</span></div>
+            </div>
+            <div><span id="date" class="font-semibold">May 21 2026</span></div>
+          </div>
+
+          <div
+            class="col-span-1 p-4 border-r border-gray-300 flex flex-col justify-center space-y-2 text-left"
+          >
+            <p><span id="summary" class="font-semibold"></span></p>
+            <p><span id="cloud-cover" class="font-semibold"></span></p>
+            <p><span id="daily-summary" class="font-semibold text-sm"></span></p>
+            
+          </div>
+          <div
+            class="col-span-1 p-4 border-r border-gray-300 flex flex-col justify-center space-y-2 text-left"
+          >
+            
+              <span id="temperature" class="font-semibold"></span>
+              <span id="temphigh" class="font-semibold"></span>
+              <span id="templow" class="font-semibold"></span>
+          </div>
+          <div
+            class="col-span-1 p-4 flex flex-col justify-center space-y-2 text-left"
+          >
+            <p><span id="wind" class="font-semibold"></span></p>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

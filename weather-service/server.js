@@ -11,12 +11,10 @@ const BASE_URL =
   process.env.BASE_URL || "https://www.meteosource.com/api/v1/free";
 
 if (!API_KEY) {
-  console.warn(
-    "Missing API_KEY.",
-  );
+  console.warn("Missing API_KEY.");
 }
 
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "../weather-dashboard")));
 app.use("/api", apiLimiter);
 
 async function fetchMeteosource(endpoint, params) {

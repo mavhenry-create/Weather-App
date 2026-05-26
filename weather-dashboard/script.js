@@ -164,7 +164,37 @@ async function displayWeather() {
     summary: dailySummary = "",
   } = todayDaily || {};
   const { temperature_max = "", temperature_min = "" } = all_day || {};
+  const weeklyDaily = daily?.data || [];
+  for (let i = 1; i < 6; i++) {
+    const dailyData = weeklyDaily[i] || {};
+    const {
+      day: dailyDay = "",
+      all_day: dailyAllDay = {},
+      summary: dailySummary = "",
+      icon: dailyIconNum = "",
+    } = dailyData || {};
+    const {
+      temperature_max: dailyTempMax = "",
+      temperature_min: dailyTempMin = "",
+    } = dailyAllDay || {};
+    const dayDateEl = document.getElementById(`day${i + 1}-date`);
+    const daySummaryEl = document.getElementById(`day${i + 1}-summary`);
+    const dayTempHighEl = document.getElementById(`day${i + 1}-temphigh`);
+    const dayTempLowEl = document.getElementById(`day${i + 1}-templow`);
+    const dayIconEl = document.getElementById(`day${i + 1}-icon`);
 
+    if (dayDateEl) dayDateEl.textContent = dailyDay;
+    if (daySummaryEl) daySummaryEl.textContent = dailySummary;
+    if (dayTempHighEl)
+      dayTempHighEl.textContent = `High: ${dailyTempMax}${tempUnit}`;
+    if (dayTempLowEl)
+      dayTempLowEl.textContent = `Low: ${dailyTempMin}${tempUnit}`;
+    if (dayIconEl) {
+      dayIconEl.src = getIconUrl(dailyIconNum);
+      dayIconEl.hidden = false;
+    }
+  }
+  
   document.getElementById("city-name").textContent = name;
   document.getElementById("region").textContent = region;
   document.getElementById("country-code").textContent = country;
@@ -208,7 +238,7 @@ searchInput.addEventListener(`input`, async (e) => {
 
   if (query.length < 2) {
     selectedPlaceId = null;
-    document.getElementById("place_suggestions").innerHTML = "";
+    document.getElementById("place_suggestions").replaceChildren(); // Clear suggestions from datalist
     suggestionMap.clear();
     return;
   }
@@ -219,7 +249,20 @@ function getIconUrl(icon_num) {
   return `/medium/${icon_num}.png`;
 }
 
-getWeatherBtn.addEventListener("click", displayWeather);
+getWeatherBtn.addEventListener("click", () => {
+ const currentWeatherModal = document.getElementById("current-weather-modal");
+ displayWeather();
+ if (currentWeatherModal) {
+   currentWeatherModal.hidden = false;
+ }
+});
+
+document.getElementById("toggle-forecast-btn").addEventListener("click", () => {
+  const forecastModal = document.getElementById("forecast-modal");
+  if (forecastModal) {
+    forecastModal.hidden = !forecastModal.hidden; // Toggle the visibility of the forecast modal when the button is clicked
+  }
+})
 
 // dark mode toggle
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
